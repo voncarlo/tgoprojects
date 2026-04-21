@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 220 25% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 12%;
+
+    --primary: 155 50% 22%;
+    --primary-foreground: 150 30% 96%;
+    --primary-glow: 155 45% 32%;
+
+    --secondary: 220 15% 95%;
+    --secondary-foreground: 220 25% 18%;
+
+    --muted: 220 15% 96%;
+    --muted-foreground: 220 10% 46%;
+
+    --accent: 220 15% 95%;
+    --accent-foreground: 220 25% 18%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 92%;
+    --input: 220 15% 92%;
+    --ring: 155 50% 28%;
+
+    --radius: 1rem;
+
+    /* Sidebar - dark green */
+    --sidebar-background: 158 38% 14%;
+    --sidebar-foreground: 150 20% 88%;
+    --sidebar-primary: 150 60% 45%;
+    --sidebar-primary-foreground: 158 40% 10%;
+    --sidebar-accent: 158 35% 20%;
+    --sidebar-accent-foreground: 150 25% 96%;
+    --sidebar-border: 158 30% 22%;
+    --sidebar-ring: 150 60% 45%;
+    --sidebar-muted: 150 12% 65%;
+
+    /* KPI accents */
+    --accent-green: 150 55% 45%;
+    --accent-green-soft: 150 60% 94%;
+    --accent-blue: 215 80% 55%;
+    --accent-blue-soft: 215 90% 95%;
+    --accent-red: 0 70% 58%;
+    --accent-red-soft: 0 80% 96%;
+    --accent-teal: 180 55% 42%;
+    --accent-teal-soft: 180 55% 94%;
+    --accent-amber: 38 90% 52%;
+    --accent-amber-soft: 38 95% 94%;
+    --accent-purple: 260 55% 60%;
+    --accent-purple-soft: 260 70% 96%;
+
+    /* Status badges */
+    --status-done-bg: 150 60% 92%;
+    --status-done-fg: 150 55% 28%;
+    --status-review-bg: 38 95% 92%;
+    --status-review-fg: 28 75% 35%;
+    --status-backlog-bg: 220 25% 92%;
+    --status-backlog-fg: 220 20% 38%;
+
+    /* Gradients & shadows */
+    --gradient-sidebar: linear-gradient(180deg, hsl(158 40% 16%), hsl(158 36% 11%));
+    --shadow-card: 0 1px 2px hsl(220 25% 12% / 0.04), 0 4px 16px hsl(220 25% 12% / 0.04);
+    --shadow-card-hover: 0 2px 4px hsl(220 25% 12% / 0.05), 0 10px 28px hsl(220 25% 12% / 0.07);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+  }
+}
