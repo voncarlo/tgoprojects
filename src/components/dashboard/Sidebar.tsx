@@ -1,14 +1,13 @@
 import {
-  BriefcaseBusiness,
-  ChevronDown,
+  BarChart3,
+  CheckSquare,
+  FolderKanban,
   Gauge,
   LogOut,
   PackageSearch,
-  Route,
-  SquareChartGantt,
-  Truck,
+  Settings,
+  StickyNote,
   Users,
-  Warehouse,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { cn } from "@/lib/utils";
@@ -17,7 +16,6 @@ type NavItem = {
   label: string;
   icon: React.ElementType;
   to: string;
-  accent?: boolean;
 };
 
 type NavGroup = {
@@ -31,18 +29,23 @@ const navGroups: NavGroup[] = [
     items: [{ label: "Dashboard", icon: Gauge, to: "/" }],
   },
   {
-    title: "OPERATIONS",
+    title: "MANAGEMENT",
     items: [
-      { label: "Recruitment Tools", icon: Users, to: "/projects" },
-      { label: "Business Admin Tools", icon: BriefcaseBusiness, to: "/tasks" },
-      { label: "Dispatch Tools", icon: Truck, to: "/notes" },
-      { label: "Last Mile Support", icon: Route, to: "/teams", accent: true },
-      { label: "General Tools", icon: SquareChartGantt, to: "/reports" },
+      { label: "Projects", icon: FolderKanban, to: "/projects" },
+      { label: "Tasks", icon: CheckSquare, to: "/tasks" },
+      { label: "Notes & Ideas", icon: StickyNote, to: "/notes" },
     ],
   },
   {
     title: "TEAMS",
-    items: [{ label: "Roller Haven Tools", icon: Warehouse, to: "/settings" }],
+    items: [
+      { label: "Teams", icon: Users, to: "/teams" },
+      { label: "Reports", icon: BarChart3, to: "/reports" },
+    ],
+  },
+  {
+    title: "SETTINGS",
+    items: [{ label: "Settings", icon: Settings, to: "/settings" }],
   },
 ];
 
@@ -52,18 +55,18 @@ const LogoLockup = () => (
       <div className="font-['Montserrat'] text-[22px] font-extrabold leading-none tracking-[0.06em] text-sidebar-primary">
         TGO
       </div>
-      <div className="mt-1 text-[11px] font-bold uppercase tracking-[0.1em] text-white/95">
-        TGO Global
+      <div className="mt-1 text-[11px] font-bold uppercase tracking-[0.12em] text-white/95">
+        TGO Portal
       </div>
       <div className="mt-0.5 text-[8px] font-semibold uppercase tracking-[0.24em] text-sidebar-muted">
-        Outsourcing
+        Workspace
       </div>
       <div className="mt-5 px-3 text-center">
         <p className="text-[12px] font-extrabold uppercase leading-tight tracking-[0.03em] text-white">
-          Automation and AI Portal
+          Project Operations Hub
         </p>
         <p className="mt-1 text-[10px] font-semibold text-sidebar-foreground">
-          Internal operations workspace
+          Planning, tracking, and reporting
         </p>
       </div>
     </div>
@@ -89,19 +92,15 @@ export const Sidebar = () => {
                     to={item.to}
                     end={item.to === "/"}
                     className={cn(
-                      "group flex items-center justify-between rounded-md px-3 py-2.5 text-[14px] font-semibold transition-all",
+                      "group flex items-center rounded-md px-3 py-2.5 text-[14px] font-semibold transition-all",
                       "text-sidebar-foreground hover:bg-white/8 hover:text-white"
                     )}
                     activeClassName="bg-white/28 text-white shadow-[inset_0_0_0_1px_hsl(0_0%_100%/.07)]"
                   >
                     <span className="flex items-center gap-2.5">
-                      <item.icon
-                        className={cn("h-[16px] w-[16px] shrink-0", item.accent && "text-[#77b8ff]")}
-                        strokeWidth={2}
-                      />
+                      <item.icon className="h-[16px] w-[16px] shrink-0" strokeWidth={2} />
                       <span className="leading-tight">{item.label}</span>
                     </span>
-                    {item.to !== "/" && <ChevronDown className="h-4 w-4 text-sidebar-muted/90" strokeWidth={2.1} />}
                   </NavLink>
                 </li>
               ))}
