@@ -57,22 +57,17 @@ interface SidebarProps {
 }
 
 const LogoLockup = ({ collapsed }: { collapsed: boolean }) => (
-  <div className={cn("pb-7 pt-5", collapsed ? "px-2" : "px-3")}>
-    <div className={cn("flex items-start gap-3", collapsed && "justify-center")}>
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-sidebar-primary/16 text-lg font-bold text-sidebar-primary ring-1 ring-white/4">
-        T
+  <div className={cn("border-b border-sidebar-border/80 pb-5 pt-3", collapsed ? "px-2" : "px-3")}>
+    {!collapsed && (
+      <div className="min-w-0 pt-0.5">
+        <p className="truncate font-['Montserrat'] text-[15px] font-extrabold tracking-[-0.03em] text-sidebar-primary">
+          TGO Projects
+        </p>
+        <p className="mt-1 truncate font-['Montserrat'] text-[10px] font-semibold uppercase tracking-[0.18em] text-[#9cb1a9]">
+          Internal Operations Workspace
+        </p>
       </div>
-      {!collapsed && (
-        <div className="min-w-0 pt-0.5">
-          <p className="truncate font-['Montserrat'] text-[15px] font-extrabold tracking-[-0.02em] text-white">
-            TGO Portal
-          </p>
-          <p className="mt-1 truncate font-['Montserrat'] text-[10px] font-semibold uppercase tracking-[0.28em] text-[#d5d7af]">
-            Internal Operations Workspace
-          </p>
-        </div>
-      )}
-    </div>
+    )}
   </div>
 );
 
@@ -88,24 +83,24 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
 
       <nav className="flex-1 overflow-y-auto pb-4">
         {navGroups.map((group) => (
-          <div key={group.title} className="mb-8">
+          <div key={group.title} className="mb-7">
             {!collapsed && (
-              <p className="mb-3 px-3 font-['Montserrat'] text-[11px] font-bold tracking-[0.18em] text-[#aab5b4]">
+              <p className="mb-2 px-3 font-['Montserrat'] text-[11px] font-bold tracking-[0.16em] text-[#8fa29b]">
                 {group.title}
               </p>
             )}
-            <ul className="space-y-2">
+            <ul className="space-y-1">
               {group.items.map((item) => (
                 <li key={item.label}>
                   <NavLink
                     to={item.to}
                     end={item.to === "/"}
                     className={cn(
-                      "group flex items-center gap-3 rounded-2xl px-4 py-3 text-[15px] font-semibold transition-all",
-                      "text-[#e7eadf] hover:bg-white/8 hover:text-white",
+                      "group flex items-center gap-3 rounded-2xl px-3 py-2.5 text-[15px] font-semibold transition-all",
+                      "text-[#edf1eb] hover:bg-white/6 hover:text-white",
                       collapsed && "justify-center px-3"
                     )}
-                    activeClassName="bg-white/10 text-white shadow-[inset_0_0_0_1px_hsl(0_0%_100%/.04)]"
+                    activeClassName="bg-white/10 text-white shadow-[inset_0_0_0_1px_hsl(0_0%_100%/.03)]"
                   >
                     <item.icon className="h-[18px] w-[18px] shrink-0 text-inherit" strokeWidth={2} />
                     {!collapsed && <span className="leading-tight">{item.label}</span>}
