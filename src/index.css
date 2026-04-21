@@ -2,78 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Public+Sans:wght@400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 220 25% 12%;
+    --background: 138 16% 96%;
+    --foreground: 178 24% 19%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 25% 12%;
+    --card-foreground: 178 24% 19%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 12%;
+    --popover-foreground: 178 24% 19%;
 
-    --primary: 200 35% 24%;
-    --primary-foreground: 200 30% 96%;
-    --primary-glow: 200 35% 34%;
+    --primary: 198 35% 24%;
+    --primary-foreground: 138 30% 96%;
+    --primary-glow: 198 31% 33%;
 
-    --secondary: 220 15% 95%;
-    --secondary-foreground: 220 25% 18%;
+    --secondary: 138 12% 93%;
+    --secondary-foreground: 178 20% 24%;
 
-    --muted: 220 15% 96%;
-    --muted-foreground: 220 10% 46%;
+    --muted: 150 12% 94%;
+    --muted-foreground: 178 12% 47%;
 
-    --accent: 220 15% 95%;
-    --accent-foreground: 220 25% 18%;
+    --accent: 145 18% 94%;
+    --accent-foreground: 178 20% 24%;
 
     --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 92%;
-    --input: 220 15% 92%;
-    --ring: 200 35% 30%;
+    --border: 198 24% 84%;
+    --input: 198 14% 88%;
+    --ring: 198 35% 34%;
 
     --radius: 1rem;
 
-    /* Sidebar - brand teal */
     --sidebar-background: 200 35% 24%;
-    --sidebar-foreground: 200 20% 88%;
-    --sidebar-primary: 197 42% 52%;
-    --sidebar-primary-foreground: 200 35% 12%;
-    --sidebar-accent: 200 30% 29%;
-    --sidebar-accent-foreground: 200 25% 96%;
-    --sidebar-border: 200 25% 34%;
-    --sidebar-ring: 197 42% 52%;
-    --sidebar-muted: 200 12% 70%;
+    --sidebar-foreground: 201 16% 82%;
+    --sidebar-primary: 92 38% 60%;
+    --sidebar-primary-foreground: 198 36% 14%;
+    --sidebar-accent: 205 10% 47%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 198 27% 33%;
+    --sidebar-ring: 92 38% 60%;
+    --sidebar-muted: 195 10% 61%;
 
     /* KPI accents */
-    --accent-green: 150 55% 45%;
-    --accent-green-soft: 150 60% 94%;
-    --accent-blue: 215 80% 55%;
-    --accent-blue-soft: 215 90% 95%;
-    --accent-red: 0 70% 58%;
-    --accent-red-soft: 0 80% 96%;
-    --accent-teal: 200 35% 40%;
-    --accent-teal-soft: 200 45% 94%;
+    --accent-green: 149 56% 39%;
+    --accent-green-soft: 120 28% 93%;
+    --accent-blue: 204 55% 49%;
+    --accent-blue-soft: 204 72% 95%;
+    --accent-red: 3 67% 56%;
+    --accent-red-soft: 6 74% 95%;
+    --accent-teal: 161 59% 37%;
+    --accent-teal-soft: 132 25% 93%;
     --accent-amber: 38 90% 52%;
-    --accent-amber-soft: 38 95% 94%;
-    --accent-purple: 260 55% 60%;
-    --accent-purple-soft: 260 70% 96%;
+    --accent-amber-soft: 42 94% 93%;
+    --accent-purple: 259 46% 59%;
+    --accent-purple-soft: 260 58% 96%;
 
     /* Status badges */
-    --status-done-bg: 194 48% 91%;
-    --status-done-fg: 200 40% 27%;
+    --status-done-bg: 132 25% 92%;
+    --status-done-fg: 149 56% 30%;
     --status-review-bg: 38 95% 92%;
     --status-review-fg: 28 75% 35%;
     --status-backlog-bg: 220 25% 92%;
     --status-backlog-fg: 220 20% 38%;
 
     /* Gradients & shadows */
-    --gradient-sidebar: linear-gradient(180deg, hsl(200 35% 28%), hsl(200 35% 18%));
-    --shadow-card: 0 1px 2px hsl(220 25% 12% / 0.04), 0 4px 16px hsl(220 25% 12% / 0.04);
-    --shadow-card-hover: 0 2px 4px hsl(220 25% 12% / 0.05), 0 10px 28px hsl(220 25% 12% / 0.07);
+    --gradient-sidebar: linear-gradient(180deg, hsl(200 35% 24%), hsl(198 34% 21%));
+    --shadow-card: 0 1px 2px hsl(180 12% 20% / 0.05), 0 4px 18px hsl(180 12% 20% / 0.05);
+    --shadow-card-hover: 0 3px 8px hsl(180 12% 20% / 0.06), 0 12px 30px hsl(180 12% 20% / 0.08);
   }
 }
 
@@ -84,8 +83,9 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
     font-feature-settings: 'cv11', 'ss01';
     -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at top, hsl(137 20% 89%), hsl(138 16% 96%) 28%);
   }
 }

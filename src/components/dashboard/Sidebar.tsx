@@ -1,210 +1,132 @@
 import {
-  LayoutDashboard,
-  FolderKanban,
-  CheckSquare,
-  StickyNote,
+  BriefcaseBusiness,
+  ChevronDown,
+  Gauge,
+  LogOut,
+  PackageSearch,
+  Route,
+  SquareChartGantt,
+  Truck,
   Users,
-  BarChart3,
-  Settings,
-  Bell,
-  PanelLeftClose,
-  PanelLeftOpen,
+  Warehouse,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { NavLink } from "@/components/NavLink";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
-type Item = { label: string; icon: React.ElementType; to: string };
-type Section = { title: string; items: Item[] };
+type NavItem = {
+  label: string;
+  icon: React.ElementType;
+  to: string;
+  accent?: boolean;
+};
 
-const sections: Section[] = [
+type NavGroup = {
+  title: string;
+  items: NavItem[];
+};
+
+const navGroups: NavGroup[] = [
   {
     title: "HOME",
-    items: [{ label: "Dashboard", icon: LayoutDashboard, to: "/" }],
+    items: [{ label: "Dashboard", icon: Gauge, to: "/" }],
   },
   {
-    title: "MANAGEMENT",
+    title: "OPERATIONS",
     items: [
-      { label: "Projects", icon: FolderKanban, to: "/projects" },
-      { label: "Tasks", icon: CheckSquare, to: "/tasks" },
-      { label: "Notes & Ideas", icon: StickyNote, to: "/notes" },
+      { label: "Recruitment Tools", icon: Users, to: "/projects" },
+      { label: "Business Admin Tools", icon: BriefcaseBusiness, to: "/tasks" },
+      { label: "Dispatch Tools", icon: Truck, to: "/notes" },
+      { label: "Last Mile Support", icon: Route, to: "/teams", accent: true },
+      { label: "General Tools", icon: SquareChartGantt, to: "/reports" },
     ],
   },
   {
     title: "TEAMS",
-    items: [
-      { label: "Teams", icon: Users, to: "/teams" },
-      { label: "Reports", icon: BarChart3, to: "/reports" },
-    ],
-  },
-  {
-    title: "SETTINGS",
-    items: [{ label: "Settings", icon: Settings, to: "/settings" }],
+    items: [{ label: "Roller Haven Tools", icon: Warehouse, to: "/settings" }],
   },
 ];
 
-const notifications = [
-  { title: "Weekly ops report ready", time: "2m ago" },
-  { title: "Riley Kim assigned you a task", time: "1h ago" },
-  { title: "Budget forecast Q2 needs review", time: "3h ago" },
-  { title: "Compliance audit scheduled", time: "Yesterday" },
-];
+const LogoLockup = () => (
+  <div className="pb-8 pt-6">
+    <div className="flex flex-col items-center text-center">
+      <div className="font-['Montserrat'] text-[22px] font-extrabold leading-none tracking-[0.06em] text-sidebar-primary">
+        TGO
+      </div>
+      <div className="mt-1 text-[11px] font-bold uppercase tracking-[0.1em] text-white/95">
+        TGO Global
+      </div>
+      <div className="mt-0.5 text-[8px] font-semibold uppercase tracking-[0.24em] text-sidebar-muted">
+        Outsourcing
+      </div>
+      <div className="mt-5 px-3 text-center">
+        <p className="text-[12px] font-extrabold uppercase leading-tight tracking-[0.03em] text-white">
+          Automation and AI Portal
+        </p>
+        <p className="mt-1 text-[10px] font-semibold text-sidebar-foreground">
+          Internal operations workspace
+        </p>
+      </div>
+    </div>
+    <div className="mt-4 border-t border-sidebar-border/90" />
+  </div>
+);
 
-interface SidebarProps {
-  collapsed: boolean;
-  onToggle: () => void;
-}
-
-export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
+export const Sidebar = () => {
   return (
-    <TooltipProvider delayDuration={100}>
-      <aside
-        className={cn(
-          "sticky top-0 flex h-screen flex-col bg-gradient-sidebar text-sidebar-foreground transition-[width] duration-300 ease-out",
-          collapsed ? "w-[72px]" : "w-64"
-        )}
-      >
-        {/* Brand */}
-        <div className={cn("pt-7 pb-8", collapsed ? "px-4" : "px-6")}>
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sidebar-primary/20 ring-1 ring-sidebar-primary/30">
-              <span className="text-sm font-bold text-sidebar-primary">T</span>
-            </div>
-            {!collapsed && (
-              <div className="min-w-0">
-                <h1 className="truncate text-[15px] font-semibold leading-tight text-sidebar-accent-foreground">
-                  TGO Portal
-                </h1>
-                <p className="mt-0.5 truncate text-[10px] font-medium tracking-[0.12em] text-sidebar-muted">
-                  INTERNAL OPERATIONS WORKSPACE
-                </p>
-              </div>
-            )}
+    <aside className="sticky top-0 hidden h-screen w-[236px] shrink-0 flex-col bg-gradient-sidebar px-4 text-sidebar-foreground lg:flex">
+      <LogoLockup />
+
+      <nav className="flex-1 overflow-y-auto pb-4">
+        {navGroups.map((group) => (
+          <div key={group.title} className="mb-7">
+            <p className="mb-2 px-2 text-[11px] font-extrabold tracking-[0.12em] text-sidebar-muted">
+              {group.title}
+            </p>
+            <ul className="space-y-1.5">
+              {group.items.map((item) => (
+                <li key={item.label}>
+                  <NavLink
+                    to={item.to}
+                    end={item.to === "/"}
+                    className={cn(
+                      "group flex items-center justify-between rounded-md px-3 py-2.5 text-[14px] font-semibold transition-all",
+                      "text-sidebar-foreground hover:bg-white/8 hover:text-white"
+                    )}
+                    activeClassName="bg-white/28 text-white shadow-[inset_0_0_0_1px_hsl(0_0%_100%/.07)]"
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <item.icon
+                        className={cn("h-[16px] w-[16px] shrink-0", item.accent && "text-[#77b8ff]")}
+                        strokeWidth={2}
+                      />
+                      <span className="leading-tight">{item.label}</span>
+                    </span>
+                    {item.to !== "/" && <ChevronDown className="h-4 w-4 text-sidebar-muted/90" strokeWidth={2.1} />}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
+        ))}
+      </nav>
 
-        {/* Nav */}
-        <nav className="flex-1 overflow-y-auto px-3">
-          {sections.map((section) => (
-            <div key={section.title} className="mb-6">
-              {!collapsed && (
-                <p className="mb-2 px-3 text-[10px] font-semibold tracking-[0.14em] text-sidebar-muted">
-                  {section.title}
-                </p>
-              )}
-              <ul className="space-y-1">
-                {section.items.map((item) => {
-                  const link = (
-                    <NavLink
-                      to={item.to}
-                      end={item.to === "/"}
-                      className={cn(
-                        "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
-                        "text-sidebar-foreground/85 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground",
-                        collapsed && "justify-center px-2"
-                      )}
-                      activeClassName="!bg-sidebar-accent !text-sidebar-accent-foreground shadow-sm"
-                    >
-                      <item.icon className="h-[18px] w-[18px] shrink-0" strokeWidth={1.8} />
-                      {!collapsed && <span>{item.label}</span>}
-                    </NavLink>
-                  );
-                  return (
-                    <li key={item.label}>
-                      {collapsed ? (
-                        <Tooltip>
-                          <TooltipTrigger asChild>{link}</TooltipTrigger>
-                          <TooltipContent side="right">{item.label}</TooltipContent>
-                        </Tooltip>
-                      ) : (
-                        link
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ))}
-        </nav>
-
-        {/* Profile */}
-        <div className={cn("mx-3 mb-3 rounded-xl bg-sidebar-accent/50", collapsed ? "p-2" : "p-3")}>
-          <div className={cn("flex items-center gap-3", collapsed && "justify-center")}>
-            <button className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sidebar-primary/30 text-xs font-semibold text-sidebar-accent-foreground ring-1 ring-sidebar-primary/40 transition hover:ring-sidebar-primary">
-              AR
-            </button>
-            {!collapsed && (
-              <>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-sidebar-accent-foreground">
-                    Alex Rivera
-                  </p>
-                  <p className="truncate text-[11px] text-sidebar-muted">
-                    Admin · Operations
-                  </p>
-                </div>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <button
-                      aria-label="Notifications"
-                      className="relative rounded-md p-1.5 text-sidebar-muted transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                    >
-                      <Bell className="h-4 w-4" strokeWidth={1.8} />
-                      <span className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full bg-accent-amber" />
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent side="right" align="end" className="w-72 p-0">
-                    <div className="border-b border-border px-4 py-3">
-                      <p className="text-sm font-semibold text-foreground">Notifications</p>
-                      <p className="text-xs text-muted-foreground">{notifications.length} new updates</p>
-                    </div>
-                    <ul className="max-h-72 divide-y divide-border overflow-y-auto">
-                      {notifications.map((n) => (
-                        <li
-                          key={n.title}
-                          className="cursor-pointer px-4 py-3 text-sm transition-colors hover:bg-muted/50"
-                        >
-                          <p className="font-medium text-foreground">{n.title}</p>
-                          <p className="mt-0.5 text-xs text-muted-foreground">{n.time}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  </PopoverContent>
-                </Popover>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Hide sidebar */}
-        <button
-          onClick={onToggle}
-          className={cn(
-            "mx-3 mb-4 flex items-center gap-2 rounded-md px-3 py-2 text-xs font-medium text-sidebar-muted transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground",
-            collapsed && "justify-center"
-          )}
-          aria-label={collapsed ? "Show sidebar" : "Hide sidebar"}
-        >
-          {collapsed ? (
-            <PanelLeftOpen className="h-4 w-4" strokeWidth={1.8} />
-          ) : (
-            <>
-              <PanelLeftClose className="h-4 w-4" strokeWidth={1.8} />
-              Hide Sidebar
-            </>
-          )}
+      <div className="mb-6 mt-auto border-t border-sidebar-border/90 pt-4">
+        <button className="flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-[14px] font-semibold text-white/90 transition hover:bg-white/8 hover:text-white">
+          <LogOut className="h-4 w-4" strokeWidth={2} />
+          Logout
         </button>
-      </aside>
-    </TooltipProvider>
+        <div className="mt-4 border-t border-sidebar-border/90 pt-4">
+          <p className="px-2 text-[11px] font-extrabold tracking-[0.12em] text-sidebar-muted">
+            INSIGHTS &amp; ADMIN
+          </p>
+          <div className="mt-3 rounded-xl border border-sidebar-border/70 bg-black/10 px-3 py-3 text-[12px] text-sidebar-foreground/90">
+            <div className="flex items-start gap-2.5">
+              <PackageSearch className="mt-0.5 h-4 w-4 text-sidebar-primary" strokeWidth={2} />
+              <p>Operational tools, validation workflows, and reporting dashboards in one place.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
   );
 };
