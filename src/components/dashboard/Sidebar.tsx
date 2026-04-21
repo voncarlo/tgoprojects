@@ -11,6 +11,7 @@ import {
   StickyNote,
   Users,
 } from "lucide-react";
+import { toast } from "sonner";
 import { NavLink } from "@/components/NavLink";
 import { cn } from "@/lib/utils";
 
@@ -120,7 +121,11 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
                 <p className="truncate text-[15px] font-bold text-white">Alex Rivera</p>
                 <p className="truncate text-[13px] text-[#d9ddd1]">Admin · Operations</p>
               </div>
-              <button className="relative rounded-full p-1.5 text-[#d9ddd1] transition hover:bg-white/8 hover:text-white">
+              <button
+                type="button"
+                onClick={() => toast("Notifications", { description: "3 workspace updates are ready to review." })}
+                className="relative rounded-full p-1.5 text-[#d9ddd1] transition hover:bg-white/8 hover:text-white"
+              >
                 <Bell className="h-4 w-4" strokeWidth={2} />
                 <span className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full bg-accent-amber" />
               </button>
@@ -129,6 +134,7 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
         )}
 
         <button
+          type="button"
           onClick={onToggle}
           className={cn(
             "flex w-full items-center gap-2 rounded-xl px-4 py-2.5 text-[14px] font-medium text-[#d9ddd1] transition hover:bg-white/8 hover:text-white",
@@ -141,7 +147,11 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
         </button>
 
         {!collapsed && (
-          <button className="mt-2 flex w-full items-center gap-2 rounded-xl px-4 py-2.5 text-[14px] font-medium text-[#d9ddd1] transition hover:bg-white/8 hover:text-white">
+          <button
+            type="button"
+            onClick={() => toast("Logout", { description: "Demo logout clicked. Keep working safely in preview mode." })}
+            className="mt-2 flex w-full items-center gap-2 rounded-xl px-4 py-2.5 text-[14px] font-medium text-[#d9ddd1] transition hover:bg-white/8 hover:text-white"
+          >
             <LogOut className="h-4 w-4" strokeWidth={2} />
             <span>Logout</span>
           </button>

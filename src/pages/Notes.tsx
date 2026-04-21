@@ -7,6 +7,9 @@ const Notes = () => (
     subtitle="Capture thinking and team brainstorms"
     icon={StickyNote}
     description="Keep all internal notes, meeting recaps, and ideas in one place. Coming soon."
+    primaryActionLabel="New Note"
+    secondaryActionLabel="Share Summary"
+    sampleItems={["Q2 planning notes", "Automation backlog", "Dispatch meeting recap", "Hiring process ideas"]}
   />
 );
 

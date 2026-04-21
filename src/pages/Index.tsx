@@ -3,20 +3,20 @@ import {
   Activity,
   AlertTriangle,
   CheckCircle2,
+  FolderKanban,
   Gauge,
   ListChecks,
   Loader2,
   TrendingDown,
   Users,
-  FolderKanban,
 } from "lucide-react";
 import { toast } from "sonner";
+import { ActivityRow } from "@/components/dashboard/ActivityRow";
 import { FilterSelect } from "@/components/dashboard/FilterSelect";
 import { KpiCard } from "@/components/dashboard/KpiCard";
 import { PanelCard } from "@/components/dashboard/PanelCard";
 import { ProgressRow } from "@/components/dashboard/ProgressRow";
 import { WorkloadRow } from "@/components/dashboard/WorkloadRow";
-import { ActivityRow } from "@/components/dashboard/ActivityRow";
 
 const projectsData = [
   { name: "Operations Overhaul", value: 20, total: 10, inProgress: 4, overdue: 3, completed: 1 },
@@ -106,7 +106,11 @@ const Index = () => {
 
       <section className="mb-7 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-6">
         {kpis.map((item) => (
-          <KpiCard key={item.label} {...item} />
+          <KpiCard
+            key={item.label}
+            {...item}
+            onClick={() => toast(item.label, { description: `${item.value} currently shown for the selected filters.` })}
+          />
         ))}
       </section>
 
