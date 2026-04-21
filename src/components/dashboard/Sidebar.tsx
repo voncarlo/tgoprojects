@@ -63,9 +63,6 @@ const LogoLockup = ({ collapsed }: { collapsed: boolean }) => (
         <p className="truncate font-['Montserrat'] text-[15px] font-extrabold tracking-[-0.03em] text-sidebar-primary">
           TGO Projects
         </p>
-        <p className="mt-1 truncate font-['Montserrat'] text-[10px] font-semibold uppercase tracking-[0.18em] text-[#9cb1a9]">
-          Internal Operations Workspace
-        </p>
       </div>
     )}
   </div>
@@ -96,7 +93,7 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
                     to={item.to}
                     end={item.to === "/"}
                     className={cn(
-                      "group flex items-center gap-3 rounded-2xl px-3 py-2.5 text-[15px] font-semibold transition-all",
+                      "group flex items-center gap-3 rounded-2xl px-3 py-2.5 text-[14px] font-medium transition-all",
                       "text-[#edf1eb] hover:bg-white/6 hover:text-white",
                       collapsed && "justify-center px-3"
                     )}
