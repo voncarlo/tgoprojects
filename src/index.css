@@ -15,9 +15,9 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 25% 12%;
 
-    --primary: 155 50% 22%;
-    --primary-foreground: 150 30% 96%;
-    --primary-glow: 155 45% 32%;
+    --primary: 200 35% 24%;
+    --primary-foreground: 200 30% 96%;
+    --primary-glow: 200 35% 34%;
 
     --secondary: 220 15% 95%;
     --secondary-foreground: 220 25% 18%;
@@ -33,20 +33,20 @@
 
     --border: 220 15% 92%;
     --input: 220 15% 92%;
-    --ring: 155 50% 28%;
+    --ring: 200 35% 30%;
 
     --radius: 1rem;
 
-    /* Sidebar - dark green */
-    --sidebar-background: 158 38% 14%;
-    --sidebar-foreground: 150 20% 88%;
-    --sidebar-primary: 150 60% 45%;
-    --sidebar-primary-foreground: 158 40% 10%;
-    --sidebar-accent: 158 35% 20%;
-    --sidebar-accent-foreground: 150 25% 96%;
-    --sidebar-border: 158 30% 22%;
-    --sidebar-ring: 150 60% 45%;
-    --sidebar-muted: 150 12% 65%;
+    /* Sidebar - brand teal */
+    --sidebar-background: 200 35% 24%;
+    --sidebar-foreground: 200 20% 88%;
+    --sidebar-primary: 197 42% 52%;
+    --sidebar-primary-foreground: 200 35% 12%;
+    --sidebar-accent: 200 30% 29%;
+    --sidebar-accent-foreground: 200 25% 96%;
+    --sidebar-border: 200 25% 34%;
+    --sidebar-ring: 197 42% 52%;
+    --sidebar-muted: 200 12% 70%;
 
     /* KPI accents */
     --accent-green: 150 55% 45%;
@@ -55,23 +55,23 @@
     --accent-blue-soft: 215 90% 95%;
     --accent-red: 0 70% 58%;
     --accent-red-soft: 0 80% 96%;
-    --accent-teal: 180 55% 42%;
-    --accent-teal-soft: 180 55% 94%;
+    --accent-teal: 200 35% 40%;
+    --accent-teal-soft: 200 45% 94%;
     --accent-amber: 38 90% 52%;
     --accent-amber-soft: 38 95% 94%;
     --accent-purple: 260 55% 60%;
     --accent-purple-soft: 260 70% 96%;
 
     /* Status badges */
-    --status-done-bg: 150 60% 92%;
-    --status-done-fg: 150 55% 28%;
+    --status-done-bg: 194 48% 91%;
+    --status-done-fg: 200 40% 27%;
     --status-review-bg: 38 95% 92%;
     --status-review-fg: 28 75% 35%;
     --status-backlog-bg: 220 25% 92%;
     --status-backlog-fg: 220 20% 38%;
 
     /* Gradients & shadows */
-    --gradient-sidebar: linear-gradient(180deg, hsl(158 40% 16%), hsl(158 36% 11%));
+    --gradient-sidebar: linear-gradient(180deg, hsl(200 35% 28%), hsl(200 35% 18%));
     --shadow-card: 0 1px 2px hsl(220 25% 12% / 0.04), 0 4px 16px hsl(220 25% 12% / 0.04);
     --shadow-card-hover: 0 2px 4px hsl(220 25% 12% / 0.05), 0 10px 28px hsl(220 25% 12% / 0.07);
   }
