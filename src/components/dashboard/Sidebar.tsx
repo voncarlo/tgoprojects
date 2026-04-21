@@ -57,15 +57,17 @@ interface SidebarProps {
 }
 
 const LogoLockup = ({ collapsed }: { collapsed: boolean }) => (
-  <div className={cn("pb-7 pt-5", collapsed ? "px-2" : "px-2.5")}>
+  <div className={cn("pb-7 pt-5", collapsed ? "px-2" : "px-3")}>
     <div className={cn("flex items-start gap-3", collapsed && "justify-center")}>
       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-sidebar-primary/16 text-lg font-bold text-sidebar-primary ring-1 ring-white/4">
         T
       </div>
       {!collapsed && (
         <div className="min-w-0 pt-0.5">
-          <p className="truncate text-[15px] font-bold text-white">TGO Portal</p>
-          <p className="mt-1 truncate font-['Montserrat'] text-[11px] uppercase tracking-[0.24em] text-[#d5d7af]">
+          <p className="truncate font-['Montserrat'] text-[15px] font-extrabold tracking-[-0.02em] text-white">
+            TGO Portal
+          </p>
+          <p className="mt-1 truncate font-['Montserrat'] text-[10px] font-semibold uppercase tracking-[0.28em] text-[#d5d7af]">
             Internal Operations Workspace
           </p>
         </div>
@@ -88,7 +90,7 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
         {navGroups.map((group) => (
           <div key={group.title} className="mb-8">
             {!collapsed && (
-              <p className="mb-3 px-3 text-[11px] font-extrabold tracking-[0.18em] text-[#c7cab4]">
+              <p className="mb-3 px-3 font-['Montserrat'] text-[11px] font-bold tracking-[0.18em] text-[#aab5b4]">
                 {group.title}
               </p>
             )}
@@ -99,14 +101,14 @@ export const Sidebar = ({ collapsed, onToggle }: SidebarProps) => {
                     to={item.to}
                     end={item.to === "/"}
                     className={cn(
-                      "group flex items-center gap-3 rounded-2xl px-4 py-3 text-[15px] font-bold transition-all",
+                      "group flex items-center gap-3 rounded-2xl px-4 py-3 text-[15px] font-semibold transition-all",
                       "text-[#e7eadf] hover:bg-white/8 hover:text-white",
                       collapsed && "justify-center px-3"
                     )}
                     activeClassName="bg-white/10 text-white shadow-[inset_0_0_0_1px_hsl(0_0%_100%/.04)]"
                   >
                     <item.icon className="h-[18px] w-[18px] shrink-0 text-inherit" strokeWidth={2} />
-                    {!collapsed && <span className="leading-none">{item.label}</span>}
+                    {!collapsed && <span className="leading-tight">{item.label}</span>}
                   </NavLink>
                 </li>
               ))}
