@@ -1,153 +1,165 @@
+import { useMemo, useState } from "react";
 import {
-  ArrowLeftRight,
-  BriefcaseBusiness,
-  CalendarClock,
-  CarFront,
-  ClipboardCheck,
-  FileStack,
-  IdCard,
-  Medal,
-  NotebookPen,
-  ScanSearch,
-  Truck,
-  UserRoundSearch,
+  Activity,
+  AlertTriangle,
+  CheckCircle2,
+  Gauge,
+  ListChecks,
+  Loader2,
+  TrendingDown,
+  Users,
+  FolderKanban,
 } from "lucide-react";
+import { toast } from "sonner";
+import { FilterSelect } from "@/components/dashboard/FilterSelect";
+import { KpiCard } from "@/components/dashboard/KpiCard";
+import { PanelCard } from "@/components/dashboard/PanelCard";
+import { ProgressRow } from "@/components/dashboard/ProgressRow";
+import { WorkloadRow } from "@/components/dashboard/WorkloadRow";
+import { ActivityRow } from "@/components/dashboard/ActivityRow";
 
-type ToolCard = {
-  title: string;
-  description: string;
-  icon: React.ElementType;
-};
-
-type ToolSection = {
-  title: string;
-  description: string;
-  count: number;
-  icon: React.ElementType;
-  tools: ToolCard[];
-};
-
-const sections: ToolSection[] = [
-  {
-    title: "Business Admin Tools",
-    description: "Planning, validation checks, reporting, and operations support.",
-    count: 7,
-    icon: BriefcaseBusiness,
-    tools: [
-      {
-        title: "Attendance No-Show Monitor",
-        description: "Review no-show patterns and attendance exceptions.",
-        icon: ClipboardCheck,
-      },
-      {
-        title: "Monthly Plan Input",
-        description: "Submit and manage monthly operations plans.",
-        icon: NotebookPen,
-      },
-      {
-        title: "Monthly Plan Compare",
-        description: "Compare planning snapshots across reporting periods.",
-        icon: ArrowLeftRight,
-      },
-      {
-        title: "Oil Change Tracker",
-        description: "Monitor fleet maintenance schedules and service timing.",
-        icon: CarFront,
-      },
-      {
-        title: "New Hire Cross-Checker",
-        description: "Cross-check new hires against onboarding and tracker records.",
-        icon: UserRoundSearch,
-      },
-      {
-        title: "Timecard Checker",
-        description: "Review timecard approvals and exceptions pending validation.",
-        icon: CalendarClock,
-      },
-      {
-        title: "Driver Board",
-        description: "Manage driver workflow and status visibility in one view.",
-        icon: IdCard,
-      },
-    ],
-  },
-  {
-    title: "Dispatch Tools",
-    description: "Route support, send-back planning, ranking, and dispatch decisions.",
-    count: 4,
-    icon: Truck,
-    tools: [
-      {
-        title: "ARMM Send Back Planner",
-        description: "Plan send-backs and remaining driver hours more efficiently.",
-        icon: Truck,
-      },
-      {
-        title: "Route/Stage PDF Parser",
-        description: "Extract route and stage details from dispatch PDFs.",
-        icon: FileStack,
-      },
-      {
-        title: "Send Back Snapshots",
-        description: "Review send-back planning snapshots and comparison views.",
-        icon: ScanSearch,
-      },
-      {
-        title: "Weekly DA Ranking",
-        description: "Rank DAs using weekly upload and score comparison data.",
-        icon: Medal,
-      },
-    ],
-  },
+const projectsData = [
+  { name: "Operations Overhaul", value: 20, total: 10, inProgress: 4, overdue: 3, completed: 1 },
+  { name: "Tech Infrastructure", value: 0, total: 6, inProgress: 1, overdue: 2, completed: 0 },
+  { name: "Dispatch Optimization", value: 0, total: 4, inProgress: 1, overdue: 1, completed: 0 },
+  { name: "Finance Automation", value: 0, total: 3, inProgress: 1, overdue: 1, completed: 0 },
+  { name: "Employee Onboarding 2.0", value: 0, total: 3, inProgress: 1, overdue: 1, completed: 0 },
+  { name: "Client Portal Redesign", value: 0, total: 2, inProgress: 1, overdue: 1, completed: 0 },
+  { name: "Compliance & Audit", value: 0, total: 2, inProgress: 0, overdue: 2, completed: 0 },
 ];
 
-const ToolSectionCard = ({ section }: { section: ToolSection }) => (
-  <section className="rounded-[22px] border border-border/80 bg-card/95 px-4 py-4 shadow-card backdrop-blur sm:px-6 sm:py-5">
-    <div className="mb-4 flex items-start gap-3">
-      <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-md bg-accent-teal-soft text-accent-teal">
-        <section.icon className="h-4 w-4" strokeWidth={2.1} />
-      </div>
-      <div>
-        <div className="flex items-center gap-2">
-          <h2 className="text-[15px] font-extrabold tracking-[-0.02em] text-foreground sm:text-[17px]">
-            {section.title}
-          </h2>
-          <span className="text-[13px] font-bold text-muted-foreground">({section.count})</span>
-        </div>
-        <p className="mt-1 text-[13px] text-muted-foreground sm:text-[14px]">{section.description}</p>
-      </div>
-    </div>
+const teamData = [
+  { name: "Riley Kim", department: "Technology", tasks: 4 },
+  { name: "Sam Chen", department: "Technology", tasks: 3 },
+  { name: "Morgan Taylor", department: "Admin", tasks: 3 },
+  { name: "Casey Brooks", department: "Finance", tasks: 3 },
+  { name: "Alex Rivera", department: "Operations", tasks: 2 },
+  { name: "Jordan Lee", department: "Dispatch", tasks: 2 },
+];
 
-    <div className="grid grid-cols-1 gap-6 xl:grid-cols-4 md:grid-cols-2">
-      {section.tools.map((tool) => (
-        <article
-          key={tool.title}
-          className="flex min-h-[198px] flex-col rounded-[18px] border border-[#cfdae2] bg-white px-4 py-5 shadow-[0_4px_14px_rgba(58,82,88,0.08)] transition-transform duration-200 hover:-translate-y-0.5"
-        >
-          <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-[hsl(var(--accent-green-soft))] text-[hsl(var(--accent-teal))]">
-            <tool.icon className="h-[22px] w-[22px]" strokeWidth={1.9} />
-          </div>
-          <h3 className="mt-4 max-w-[18ch] text-[17px] font-extrabold leading-tight tracking-[-0.03em] text-foreground">
-            {tool.title}
-          </h3>
-          <p className="mt-2 text-[14px] leading-7 text-muted-foreground">{tool.description}</p>
-          <button className="mt-auto inline-flex w-fit items-center rounded-xl border border-foreground/80 bg-white px-4 py-2 text-[13px] font-medium text-foreground transition hover:bg-accent/60">
-            Open
-          </button>
-        </article>
-      ))}
-    </div>
-  </section>
-);
+const activityData = [
+  { initials: "SC", title: "Set up CI/CD pipeline", project: "Tech Infrastructure", date: "Apr 21", status: "review" as const, assignee: "Sam Chen" },
+  { initials: "AR", title: "Weekly ops report automation", project: "Operations Overhaul", date: "Apr 21", status: "done" as const, assignee: "Alex Rivera" },
+  { initials: "DM", title: "Route optimization algorithm", project: "Dispatch Optimization", date: "Apr 21", status: "review" as const, assignee: "Jordan Lee" },
+  { initials: "AP", title: "New hire orientation schedule", project: "Employee Onboarding 2.0", date: "Apr 21", status: "review" as const, assignee: "Morgan Taylor" },
+  { initials: "SC", title: "Database backup strategy", project: "Tech Infrastructure", date: "Apr 21", status: "review" as const, assignee: "Sam Chen" },
+  { initials: "TN", title: "Client feedback survey", project: "Operations Overhaul", date: "Apr 21", status: "review" as const, assignee: "Casey Brooks" },
+];
 
 const Index = () => {
+  const [project, setProject] = useState("All Projects");
+  const [member, setMember] = useState("All Members");
+
+  const projectOptions = ["All Projects", ...projectsData.map((item) => item.name)];
+  const memberOptions = ["All Members", ...teamData.map((item) => item.name)];
+
+  const filteredProjects = useMemo(
+    () => (project === "All Projects" ? projectsData : projectsData.filter((item) => item.name === project)),
+    [project]
+  );
+
+  const filteredTeam = useMemo(
+    () => (member === "All Members" ? teamData : teamData.filter((item) => item.name === member)),
+    [member]
+  );
+
+  const filteredActivity = useMemo(
+    () =>
+      activityData.filter(
+        (item) =>
+          (project === "All Projects" || item.project === project) &&
+          (member === "All Members" || item.assignee === member)
+      ),
+    [project, member]
+  );
+
+  const kpis = useMemo(() => {
+    const total = filteredProjects.reduce((sum, item) => sum + item.total, 0);
+    const inProgress = filteredProjects.reduce((sum, item) => sum + item.inProgress, 0);
+    const overdue = filteredProjects.reduce((sum, item) => sum + item.overdue, 0);
+    const completed = filteredProjects.reduce((sum, item) => sum + item.completed, 0);
+    const onTime = total === 0 ? 0 : Math.round(((total - overdue) / total) * 100);
+    const overdueRate = total === 0 ? 0 : Math.round((overdue / total) * 100);
+
+    return [
+      { label: "Total Tasks", value: String(total), icon: ListChecks, tone: "green" as const },
+      { label: "In Progress", value: String(inProgress), icon: Loader2, tone: "blue" as const },
+      { label: "Overdue", value: String(overdue), icon: AlertTriangle, tone: "red" as const },
+      { label: "Completed", value: String(completed), icon: CheckCircle2, tone: "teal" as const },
+      { label: "On-Time Rate", value: `${onTime}%`, icon: Gauge, tone: "green" as const },
+      { label: "Overdue Rate", value: `${overdueRate}%`, icon: TrendingDown, tone: "amber" as const },
+    ];
+  }, [filteredProjects]);
+
   return (
-    <div className="px-4 py-4 sm:px-6 lg:px-5 lg:py-5">
-      <div className="space-y-5">
-        {sections.map((section) => (
-          <ToolSectionCard key={section.title} section={section} />
+    <div className="mx-auto max-w-[1260px] px-6 py-7 lg:px-8">
+      <header className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <h1 className="text-[24px] font-extrabold tracking-[-0.03em] text-foreground">Dashboard</h1>
+          <p className="mt-1 text-[14px] text-muted-foreground">TGO operations overview</p>
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <FilterSelect value={project} options={projectOptions} onChange={setProject} />
+          <FilterSelect value={member} options={memberOptions} onChange={setMember} />
+        </div>
+      </header>
+
+      <section className="mb-7 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-6">
+        {kpis.map((item) => (
+          <KpiCard key={item.label} {...item} />
         ))}
-      </div>
+      </section>
+
+      <section className="grid grid-cols-1 gap-5 xl:grid-cols-3">
+        <PanelCard title="Project Progress" icon={FolderKanban}>
+          <div className="space-y-2">
+            {filteredProjects.length === 0 ? (
+              <p className="py-6 text-center text-sm text-muted-foreground">No projects match.</p>
+            ) : (
+              filteredProjects.map((item) => (
+                <ProgressRow
+                  key={item.name}
+                  name={item.name}
+                  value={item.value}
+                  onClick={() => toast(item.name, { description: `${item.value}% complete · ${item.total} tasks` })}
+                />
+              ))
+            )}
+          </div>
+        </PanelCard>
+
+        <PanelCard title="Team Workload" icon={Users}>
+          <div className="divide-y divide-border/60">
+            {filteredTeam.length === 0 ? (
+              <p className="py-6 text-center text-sm text-muted-foreground">No members match.</p>
+            ) : (
+              filteredTeam.map((item) => (
+                <WorkloadRow
+                  key={item.name}
+                  {...item}
+                  onClick={() => toast(item.name, { description: `${item.department} · ${item.tasks} active tasks` })}
+                />
+              ))
+            )}
+          </div>
+        </PanelCard>
+
+        <PanelCard title="Recent Activity" icon={Activity}>
+          <div className="divide-y divide-border/60">
+            {filteredActivity.length === 0 ? (
+              <p className="py-6 text-center text-sm text-muted-foreground">No activity matches.</p>
+            ) : (
+              filteredActivity.map((item) => (
+                <ActivityRow
+                  key={item.title}
+                  {...item}
+                  onClick={() => toast(item.title, { description: `${item.project} · ${item.assignee}` })}
+                />
+              ))
+            )}
+          </div>
+        </PanelCard>
+      </section>
     </div>
   );
 };
